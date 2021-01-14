@@ -11,7 +11,9 @@ class Languages extends Model
     ];
     public function curriculums() {
         return $this
-        ->belongsToMany('App\Curriculums', 'languages_has_curriculums', 'languages_id', 'curriculums_id')
+        ->belongsToMany('App\Curriculums', 'curriculums_languages', 'languages_id', 'curriculums_id')
         ->withPivot('level');
     }
+
+    
 }
