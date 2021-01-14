@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCurriculumsFormationsTable extends Migration
+class CreateCurriculumsKnowledgesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,20 @@ class CreateCurriculumsFormationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('curriculums_formations', function (Blueprint $table) {
+        Schema::create('curriculums_knowledges', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('id_knowledges')->unsigned();
             $table->integer('id_curriculums')->unsigned();
-            $table->integer('id_formations')->unsigned();
-            $table->integer('yearConclusion');
-            $table->boolean('isConcluded');
-            $table->integer('yearStarted');
+            $table->integer('yearsOfExperience');
             $table->timestamps();
         });
 
-        Schema::table('curriculums_formations', function(Blueprint $table) {
+        Schema::table('curriculums_knowledges', function (Blueprint $table) {
+            $table->foreign('id_knowledges')->references('id')->on('knowledges')->onDelete('cascade');
             $table->foreign('id_curriculums')->references('id')->on('curriculums')->onDelete('cascade');
-            $table->foreign('id_formations')->references('id')->on('formations')->onDelete('cascade');
         });
     }
+
     /**
      * Reverse the migrations.
      *
@@ -35,6 +34,6 @@ class CreateCurriculumsFormationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('curriculums_formations');
+        Schema::dropIfExists('curriculums_knowledges');
     }
 }

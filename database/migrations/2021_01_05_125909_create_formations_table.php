@@ -17,9 +17,6 @@ class CreateFormationsTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('level');
-            $table->integer('yearConclusion');
-            $table->boolean('isConcluded');
-            $table->integer('yearStarted');
             $table->timestamps();
         });
     }
