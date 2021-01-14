@@ -12,6 +12,6 @@ class Formations extends Model
 
     public function curriculums() {
         return $this
-        ->belongsToMany('App\Curriculums', 'formations_has_curriculums', 'formations_id', 'curriculums_id');
+        ->belongsToMany(Curriculums::class, 'curriculums_formations', 'id_formations', 'id_curriculums');
     }
 }

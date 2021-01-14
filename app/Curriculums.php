@@ -13,11 +13,7 @@ class Curriculums extends Model
 
     public function formations() {
         //n - n
-        return $this->belongsToMany('App\Formations', 'formations_has_curriculums', 'curriculums_id', 'formations_id');
+        return $this->belongsToMany(Formations::class, 'curriculums_formations', 'id_curriculums', 'id_formations');
     }
 
-    public function languages() {
-        return $this->belongTomany('App\Languages', 'languages_has_curriculums', 'curriculums_id', 'languages_idAp')
-        ->withPivot('level');
-    }
 }
