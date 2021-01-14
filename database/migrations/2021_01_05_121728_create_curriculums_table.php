@@ -18,8 +18,12 @@ class CreateCurriculumsTable extends Migration
             $table->string('address');
             $table->string('phone');
             $table->string('cellphone');
-            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
+            $table->integer('id_user')->unsigned();
             $table->timestamps();
+        });
+
+        Schema::table('curriculums', function (Blueprint $table) {
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

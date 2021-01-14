@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFormationCurriculumsTable extends Migration
+class CreateKnowledgesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateFormationCurriculumsTable extends Migration
      */
     public function up()
     {
-        Schema::create('formation_curriculums', function (Blueprint $table) {
+        Schema::create('knowledges', function (Blueprint $table) {
             $table->increments('id');
-            $table->foreign('id_curriculum')->references('id')->on('curriculums')->onDelete('cascade');
-            $table->foreign('id_formation')->references('id')->on('formations')->onDelete('cascade');
+            $table->string('title');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreateFormationCurriculumsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('formation_curriculums');
+        Schema::dropIfExists('knowledges');
     }
 }
