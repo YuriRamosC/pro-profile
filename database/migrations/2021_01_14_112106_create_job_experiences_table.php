@@ -21,7 +21,11 @@ class CreateJobExperiencesTable extends Migration
             $table->date('endedAt');
             $table->string('description');
             $table->string('role');
+            $table->integer('id_curriculum')->unsigned();
             $table->timestamps();
+        });
+        Schema::table('job_experiences', function(Blueprint $table){
+            $table->foreign('id_curriculum')->references('id')->on('curriculums')->onDelete('cascade');
         });
     }
 

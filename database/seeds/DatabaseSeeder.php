@@ -32,5 +32,7 @@ class DatabaseSeeder extends Seeder
             'title' => 'Analista de Sistemas',
             'level' => 'Superior'
             ]);
+        DB::table('curriculums')
+        ->insert(['address'=> 'Coronel Elysio Pereira, 71','phone' => '3422-5194', 'cellphone' => '98535-7065', 'id_user' => 1]);
     }
 }
