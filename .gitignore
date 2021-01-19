@@ -1,6 +1,7 @@
 ### Laravel ###
 /backend/vendor/
 /backend/node_modules/
+/node_modules
 /backend/npm-debug.log
 /backend/yarn-error.log
 
