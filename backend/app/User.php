@@ -24,18 +24,4 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasOne(Curriculums::class, 'id_user');
     }
 
-    public function login($credentials){
-        if (!$token = JWTAuth::attempt($credentials)) {
-          throw new \Exception('Credencias incorretas, verifique-as e tente novamente.', -404);
-        }
-        return $token;
-      }
-      public function getJWTIdentifier()
-      {
-        return $this->getKey();
-      }
-      public function getJWTCustomClaims()
-      {
-        return [];
-      }
 }
