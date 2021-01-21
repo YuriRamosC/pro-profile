@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { TextField, Paper, AccordionSummary, AccordionDetails, Button, ButtonBase, Typography, Grid, GridItem, makeStyles, Accordion } from "@material-ui/core";
 import { Autocomplete } from '@material-ui/lab';
+import { DeleteForever } from '@material-ui/icons';
 import curriculumPrototype from '../../api/fakedata/curriculumPrototype';
 
 const useStyles = makeStyles((theme) => ({
@@ -31,24 +32,29 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 const knowledgesArray = [
-    { title: 'C' },
-    { title: 'Node.js' },
-    { title: 'React' },
-    { title: 'Javascript' },
-    { title: 'Java' },
-    { title: 'Laravel' },
-    { title: 'PHP' },
-    { title: 'HTML' },
-    { title: 'CSS' },
+    { id: 1, title: 'C' },
+    { id: 2, title: 'Node.js' },
+    { id: 3, title: 'React' },
+    { id: 4, title: 'Javascript' },
+    { id: 5, title: 'Java' },
+    { id: 1, title: 'Laravel' },
+    { id: 1, title: 'PHP' },
+    { id: 1, title: 'HTML' },
+    { id: 1, title: 'CSS' },
 ];
+
 function FormularioCadastro() {
     const [name, setName] = useState(curriculumPrototype.name);
     const [email, setEmail] = useState(curriculumPrototype.email);
     const [knowledges, setKnowledges] = useState(curriculumPrototype.knowledges);
     const classes = useStyles();
-    console.log(knowledges);
+    const removeKnowledge = (e) => {
+        console.dir(e.target.getAttribute('title'));
+        let id = e.target.getAttribute('title');
+        setKnowledges(knowledges.filter(item => item.id !== id));
+    };
     return (
-        <div className={classes.root}>
+        < div className={classes.root} >
             <Paper className={classes.paper}>
                 <Grid container spacing={2}>
                     <Grid item>
@@ -68,7 +74,17 @@ function FormularioCadastro() {
                 <Grid container spacing={3}>
                     <Accordion className={classes.fullWidthCustom}>
                         <AccordionSummary aria-controls='knowledges-content' id='knowledgesHeader'>
-                            <Typography>Conhecimentos: {knowledges}</Typography>
+                            <Typography color='primary' variant='h6'>Conhecimentos:
+                                    <Grid container>
+                                    {knowledges.map((item) => (
+                                        <Button className={classes.margin}
+                                        onClick={removeKnowledge}
+                                        variant='contained' color='secondary' title={item.id}>
+                                            {item.title} ({item.yearsOfExperience})<DeleteForever />
+                                        </Button>
+                                    ))}
+                                </Grid>
+                            </Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                             <Grid item xs={12}>
@@ -78,14 +94,14 @@ function FormularioCadastro() {
                                             id='knowledges-opt'
                                             options={knowledgesArray}
                                             getOptionLabel={(option) => option.title}
-                                            renderInput={(params) => <TextField {...params} label='Conhecimentos' variant='outlined' fullWidth/>}
+                                            renderInput={(params) => <TextField {...params} label='Conhecimentos' variant='outlined' fullWidth />}
                                         />
                                     </Grid>
                                     <Grid item>
                                         <TextField id='knowledge-time' label='Experiência(em anos)' type='number' variant='outlined' fullWidth />
                                     </Grid>
                                     <Grid item>
-                                        <Button variant="contained" color="primary" size='large' className={classes.margin}> Adicionar</Button>
+                                        <Button variant="contained" color="primary" size='medium' className={classes.margin}> Adicionar</Button>
                                     </Grid>
                                 </Grid>
                             </Grid>
