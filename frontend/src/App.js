@@ -3,14 +3,13 @@ import './App.css';
 import Login from './pages/Login';
 import 'fontsource-roboto';
 import { Container, Typography, TextField, CssBaseline } from "@material-ui/core"
-import CurriculumPage from './components/CurriculumPage';
+import CurriculumPage from './pages/CurriculumPage';
 
 function App() {
   return (
     <section>
-        <Login />
-        <CssBaseline />
-        <CurriculumPage/>
+      <CssBaseline />
+      <CurriculumPage />
     </section>
   );
 }
