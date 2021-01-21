@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(1),
     }
 }));
-const knowledges = [
+const knowledgesArray = [
     { title: 'C' },
     { title: 'Node.js' },
     { title: 'React' },
@@ -44,8 +44,9 @@ const knowledges = [
 function FormularioCadastro() {
     const [name, setName] = useState(curriculumPrototype.name);
     const [email, setEmail] = useState(curriculumPrototype.email);
-    const [knowledges, setKnowledges] = useState(curriculumPrototype.knowledge);
+    const [knowledges, setKnowledges] = useState(curriculumPrototype.knowledges);
     const classes = useStyles();
+    console.log(knowledges);
     return (
         <div className={classes.root}>
             <Paper className={classes.paper}>
@@ -67,24 +68,17 @@ function FormularioCadastro() {
                 <Grid container spacing={3}>
                     <Accordion className={classes.fullWidthCustom}>
                         <AccordionSummary aria-controls='knowledges-content' id='knowledgesHeader'>
-                            <Typography>Conhecimentos</Typography>
+                            <Typography>Conhecimentos: {knowledges}</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                             <Grid item xs={12}>
                                 <Grid container spacing={3}>
                                     <Grid item xs={5}>
                                         <Autocomplete
-                                            id='knowledges-opt' options={knowledges}
+                                            id='knowledges-opt'
+                                            options={knowledgesArray}
                                             getOptionLabel={(option) => option.title}
-                                            renderInput={
-                                                (params) =>
-                                                    <TextField
-                                                        {...params}
-                                                        id='knowledges-selected'
-                                                        label='Conhecimentos'
-                                                        variant='outlined' fullWidth
-                                                    />
-                                            }
+                                            renderInput={(params) => <TextField {...params} label='Conhecimentos' variant='outlined' fullWidth/>}
                                         />
                                     </Grid>
                                     <Grid item>

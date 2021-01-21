@@ -26,7 +26,7 @@ const curriculumPrototype = ({
     ],
     knowledges: [
         {
-            'title':'Programação em Laravel',
+            'title':'Laravel',
             'yearsOfExperience':2,
         },
         {
