@@ -46,7 +46,7 @@ const knowledgesArray = [
 function FormularioCadastro() {
     const [name, setName] = useState(curriculumPrototype.name);
     const [email, setEmail] = useState(curriculumPrototype.email);
-    const [newKnowledge, setNewKnowledge] = useState('');
+    const [newKnowledge, setNewKnowledge] = useState({ id:null, title: '', yearsOfExperience: 0 });
     const [knowledges, setKnowledges] = useState(curriculumPrototype.knowledges);
     const classes = useStyles();
     return (
@@ -74,8 +74,8 @@ function FormularioCadastro() {
                                     <Grid container>
                                     {knowledges.map((item) => (
                                         <Button className={classes.margin}
-                                        onClick={() => setKnowledges(knowledges.filter(list => list.id !== item.id))}
-                                        variant='contained' color='secondary' title={item.id}>
+                                            onClick={() => setKnowledges(knowledges.filter(list => list.id !== item.id))}
+                                            variant='contained' color='secondary' title={item.id}>
                                             {item.title} ({item.yearsOfExperience})<DeleteForever />
                                         </Button>
                                     ))}
@@ -90,20 +90,30 @@ function FormularioCadastro() {
                                             id='knowledges-opt'
                                             options={knowledgesArray}
                                             getOptionLabel={(option) => option.title}
-                                            onChange={(event, newValue) => setNewKnowledge(newValue)}
-                                            onInputChange={(event, newValue) => setNewKnowledge(newValue)}
+                                            onChange={(event, newValue) => {
+                                                setNewKnowledge({...newKnowledge, id: newValue.id, title: newValue.title});
+                                            }}
+                                            onInputChange={(event, newValue) => {
+                                                setNewKnowledge({...newKnowledge, id: newValue.id, title: newValue.title});
+                                            }}
                                             renderInput={(params) => <TextField {...params} label='Conhecimentos' variant='outlined'
-                                            fullWidth />}
+                                                fullWidth />}
                                         />
                                     </Grid>
                                     <Grid item>
                                         <TextField id='knowledge-time' label='Experiência(em anos)' type='number'
-                                        onChange={(event) => setNewKnowledge(`${newKnowledge} (${event.target.value})`)}
-                                        variant='outlined' fullWidth />
+                                            onChange={(event) => {
+                                                setNewKnowledge({...newKnowledge, yearsOfExperience:event.target.value});
+                                                }}
+                                            variant='outlined' fullWidth />
                                     </Grid>
                                     <Grid item>
                                         <Button variant="contained" color="primary" size='medium' className={classes.margin}
-                                        onClick={()=>{setKnowledges(knowledges => [...knowledges, newKnowledge])}}> Adicionar</Button>
+                                            onClick={() => {
+                                                setKnowledges(knowledges => [...knowledges, newKnowledge]);
+                                                setNewKnowledge('');
+                                                console.log(knowledges);
+                                            }}> Adicionar</Button>
                                     </Grid>
                                 </Grid>
                             </Grid>
