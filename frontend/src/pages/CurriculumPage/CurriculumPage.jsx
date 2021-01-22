@@ -46,13 +46,9 @@ const knowledgesArray = [
 function FormularioCadastro() {
     const [name, setName] = useState(curriculumPrototype.name);
     const [email, setEmail] = useState(curriculumPrototype.email);
+    const [newKnowledge, setNewKnowledge] = useState('');
     const [knowledges, setKnowledges] = useState(curriculumPrototype.knowledges);
     const classes = useStyles();
-    const removeKnowledge = (e) => {
-        console.dir(e.target.getAttribute('title'));
-        let id = e.target.getAttribute('title');
-        setKnowledges(knowledges.filter(item => item.id !== id));
-    };
     return (
         < div className={classes.root} >
             <Paper className={classes.paper}>
@@ -78,7 +74,7 @@ function FormularioCadastro() {
                                     <Grid container>
                                     {knowledges.map((item) => (
                                         <Button className={classes.margin}
-                                        onClick={removeKnowledge}
+                                        onClick={() => setKnowledges(knowledges.filter(list => list.id !== item.id))}
                                         variant='contained' color='secondary' title={item.id}>
                                             {item.title} ({item.yearsOfExperience})<DeleteForever />
                                         </Button>
@@ -94,14 +90,20 @@ function FormularioCadastro() {
                                             id='knowledges-opt'
                                             options={knowledgesArray}
                                             getOptionLabel={(option) => option.title}
-                                            renderInput={(params) => <TextField {...params} label='Conhecimentos' variant='outlined' fullWidth />}
+                                            onChange={(event, newValue) => setNewKnowledge(newValue)}
+                                            onInputChange={(event, newValue) => setNewKnowledge(newValue)}
+                                            renderInput={(params) => <TextField {...params} label='Conhecimentos' variant='outlined'
+                                            fullWidth />}
                                         />
                                     </Grid>
                                     <Grid item>
-                                        <TextField id='knowledge-time' label='Experiência(em anos)' type='number' variant='outlined' fullWidth />
+                                        <TextField id='knowledge-time' label='Experiência(em anos)' type='number'
+                                        onChange={(event) => setNewKnowledge(`${newKnowledge} (${event.target.value})`)}
+                                        variant='outlined' fullWidth />
                                     </Grid>
                                     <Grid item>
-                                        <Button variant="contained" color="primary" size='medium' className={classes.margin}> Adicionar</Button>
+                                        <Button variant="contained" color="primary" size='medium' className={classes.margin}
+                                        onClick={()=>{setKnowledges(knowledges => [...knowledges, newKnowledge])}}> Adicionar</Button>
                                     </Grid>
                                 </Grid>
                             </Grid>
